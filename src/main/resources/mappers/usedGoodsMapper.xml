@@ -11,4 +11,6 @@
  		FROM
  			`store`
  	</select>
+ 	
+ 	
  </mapper>
