@@ -22,4 +22,14 @@ public class RealEstateBO {
 	public List<RealEstate> getRealEstateByArea(int area, int price) {
 		return realestateDAO.selectRealEstateByArea(area, price);
 	}
+	public int addRealEstate(RealEstate realestate) {
+		return realestateDAO.insertRealEstate(realestate);
+	}
+	//realEstateBO.addRealEstateAsfield(realtorId, "썅떼빌리버 오피스텔 814호", 45, 월세, 100000, 120)
+	public int addRealEstateAsfield(int realtorId, String address, int area, String type, int price, Integer rentPrice) {
+		return realestateDAO.insertRealEstateAsfield(realtorId, address, area, type, price, rentPrice);
+	}
+	public int updateRealEstateById(int id, String type, int price) {
+		return realestateDAO.updateRealEstateById(id, type, price);
+	}
 }

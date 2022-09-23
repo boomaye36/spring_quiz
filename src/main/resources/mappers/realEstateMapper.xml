@@ -54,8 +54,53 @@
 		FROM
 			`real_estate`
 		WHERE
-			<![CDATA[`area` > #{area} and `price` < #{price}]]>
-		ORDER BY `createdAt` DESC
+			`type` = '매매' and
+			(<![CDATA[`area` > #{area} and `price` < #{price}]]>)
+		ORDER BY `id` DESC
 			</select>
-			
+	<insert id="insertRealEstate" parameterType="com.quiz.lesson03.model.RealEstate">
+		Insert INTO `real_estate`
+		(
+			`realtorId`
+			,`address`
+			,`area`
+			,`type`
+			,`price`
+		)
+		values
+		(
+			#{realtorId}
+			,#{address}
+			,#{area}
+			,#{type}
+			,#{price}
+		)
+	</insert>		
+	<insert id="insertRealEstateAsfield" parameterType="map">
+		Insert INTO `real_estate`
+		(
+			`realtorId`
+			,`address`
+			,`area`
+			,`type`
+			,`price`
+		)
+		values
+		(
+			#{realtorId}
+			,#{address}
+			,#{area}
+			,#{type}
+			,#{price}
+		)
+	</insert>
+	<update id="updateRealEstateById" parameterType="map">
+		UPDATE `real_estate`
+		SET
+			`type`=#{type}
+			,`price`=#{price}
+			,`updatedAt`=NOW()
+			WHERE
+				`id`=#{id}
+	</update>
 			</mapper>
