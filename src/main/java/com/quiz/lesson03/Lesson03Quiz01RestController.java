@@ -1,5 +1,6 @@
 package com.quiz.lesson03;
 
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,7 @@ public class Lesson03Quiz01RestController {
 			@RequestParam("rentprice")int rentprice) {
 		return realestateBO.getRealEstateByRentPrice(rentprice);
 	}
-	@RequestMapping("/3")
+	@RequestMapping(value="/3", produces="application/json; charset=utf-8")
 	public List<RealEstate> quiz01_3(
 			@RequestParam("area")int area, @RequestParam("price")int price){ 
 		 
