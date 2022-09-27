@@ -25,10 +25,10 @@
 				<input type="text" id="profile" name="profile" class="form-control col-3" placeholder="https://img ">
 			</div>
 			<div class="form-group">
-				<label for="temperature"><b>닉네임 </b></label>
+				<label for="temperature"><b>온도 </b></label>
 				<input type="text" id="temperature" name="temperature" class="form-control col-3" placeholder="36.5 ">
 			</div>
-			<input type="submit" class="btn btn-success" value="추가 ">
+			<input type="submit" class="btn btn-primary" value="추가 ">
 			
 		</form>
 	</div>
