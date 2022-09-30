@@ -36,10 +36,10 @@
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach items="${candidates }" var="vote" >
+				<c:forEach items="${candidates }" var="vote" varStatus="status">
 					<tr>
 						<td>${status.count }</td>
-						<td><fmt:formatNumber value="${vote }" /></td>
+						<td><fmt:formatNumber value="${vote }" type="number" /></td>
 						<td><fmt:formatNumber value="${vote / total }" type="percent" /></td>
 					</tr>
 				</c:forEach>
@@ -64,7 +64,8 @@
 					<tr>
 						<td>${card.store }</td>
 						<td><fmt:formatNumber value="${card.pay }" type="currency" /></td>
-						<td><fmt:parseDate value="${card.date }" pattern="yyyy-MM-dd일 " var="date"/>
+						<td>
+							<fmt:parseDate value="${card.date }" pattern="yyyy-MM-dd일 " var="date"/>
 							<fmt:formatDate value="${ date}" pattern="yyyy년 M월 dd일 " />
 						</td>
 	
