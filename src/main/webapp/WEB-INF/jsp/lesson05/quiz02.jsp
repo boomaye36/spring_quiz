@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+         <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,7 +20,7 @@
 	<h2>HOT 5</h2>
 	
 	
-	<table class="table">
+	<table class="table text-center">
 		<thead>
 			<tr>
 				<th>순위</th>
@@ -29,10 +31,10 @@
 		</thead>
 	
 		<tbody>
-			<c:forEach items="${musicRank}" var="musicRank" varstatus="status">
+			<c:forEach items="${musicRank}" var="musicR" varstatus="status">
 			<tr>
 				<td>${status.count}</td>
-				<td>${musicRank}</td>
+				<td>${musicR}</td>
 				
 			</tr>
 			</c:forEach>
@@ -40,7 +42,7 @@
 		
 	</table>
 	<h1>맴버</h1>
-	<table class="table">
+	<table class="table text-center">
 		<thead>
 			<tr>
 				<th>이름 </th>
@@ -50,12 +52,35 @@
 			</tr>
 		</thead>
 		<tbody>
-			<c:forEach items="${membership}" var="membership" varStatus="status" >
+			<c:forEach items="${membership}" var="member" varStatus="status" >
 			<tr>
-				<td>${membership.name}</td>
-				<td>${membership.phoneNumber }</td>
-				<td>${membership.grade }</td>
-				<td>${membership.point }</td>
+				<td>${member.name}</td>
+				<td>${member.phoneNumber }</td>
+				<td>${member.grade }
+					<c:choose>
+						<c:when test="${member.grade eq 'VIP' }">
+							<span class="text-danger">${member.grade }</span> 
+						</c:when>
+						<c:when test="${member.grade eq 'GOLD' }">
+							<span class="text-warning">${member.grade }</span> 
+						</c:when>
+						<c:otherwise>
+						
+							${member.grade }
+						</c:otherwise>
+					</c:choose> 
+					</td>
+				<td>${member.point }P
+					<c:choose>
+						<c:when test="${member.point >= 5000 }">
+							<span class="text-primary">${member.point }</span>
+						<c:otherwise>
+							${member.point }
+						</c:otherwise>
+						</c:when>
+						
+					</c:choose>
+				</td>
 			</tr>
 			</c:forEach>
 		</tbody>

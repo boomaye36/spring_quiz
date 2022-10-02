@@ -26,6 +26,7 @@ public class Lesson05Controller {
 		musicRanking.add("보고싶다");
 		model.addAttribute("musicRank", musicRanking);
 		
+		
 		List<Map<String, Object>> membership = new ArrayList<>();
 
 		Map<String, Object> member = new HashMap<>();
