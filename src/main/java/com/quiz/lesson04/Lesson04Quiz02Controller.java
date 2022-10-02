@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.quiz.lesson04.bo.RealtorBO;
 import com.quiz.lesson04.model.Realtor;
 
-@RequestMapping("/lesson02/quiz02")
+@RequestMapping("/lesson05/quiz02")
 @Controller
 public class Lesson04Quiz02Controller {
 	@Autowired
