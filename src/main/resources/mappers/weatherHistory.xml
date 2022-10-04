@@ -3,7 +3,7 @@
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.quiz.lesson05.dao.WeatherHistoryDAO">
-	<select id="selectWeatherHistoryById" parameterType="int"
+	<select id="selectWeatherHistoryById" 
 		resultType="com.quiz.lesson05.model.WeatherHistory">
 		SELECT
 			`id`
@@ -17,8 +17,7 @@
 			,`updatedAt`
 		FROM
 			`weather_history`
-		WHERE
-			`id` = #{id}
+		
 			
 	</select>
 </mapper>
