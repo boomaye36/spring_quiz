@@ -46,14 +46,16 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
-								<td>${result.date }</td>
-								<td>${result.weather }</td>
-								<td>${result.temperature }</td>
-								<td>${result.precipitation}</td>
-								<td>${result.microdust }</td>
-								<td>${result.windSpeed }</td>
+							<c:forEach items="${result }" var="weather" varStatus="status">
+ 							<tr>
+								<td>${weather.date }</td>
+								<td>${weather.weather }</td>
+								<td>${weather.temperature }</td>
+								<td>${weather.precipitation}</td>
+								<td>${weather.microdust }</td>
+								<td>${weather.windSpeed }</td>
 							</tr>
+							</c:forEach>
 						</tbody>
 					</table>
 				</div>
