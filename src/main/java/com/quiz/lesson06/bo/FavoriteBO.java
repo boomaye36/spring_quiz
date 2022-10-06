@@ -18,4 +18,12 @@ public class FavoriteBO {
 	public List<Favorite> favoriteInfo() {
 		return favoritedao.selectFavoriteInfo();
 	}
+	public Favorite existFavoriteByAddress(String address) {
+		
+		List<Favorite>favoriteList = favoritedao.existFavoriteByAddress(address);
+		if (favoriteList.isEmpty()) {
+			return null; // 중복 아니면 null 리턴
+		}
+		return favoriteList.get(0); //중복이면 첫번째 데이터를 리턴한다.
+	}
 }

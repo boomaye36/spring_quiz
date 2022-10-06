@@ -12,4 +12,5 @@ public interface FavoriteDAO {
 			@Param("address") String address
 			);
 	public List<Favorite> selectFavoriteInfo();
+	public List<Favorite> existFavoriteByAddress(String address);
 }

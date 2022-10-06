@@ -26,10 +26,16 @@
 				<label for="name">이름</label>
 				<input type="text" id="name" name="name" class="form-control">
 				<label for="address" class="mt-2">주소</label>
+				<div class="d-flex"></div>
 				<input type="text" id="address" name="address" class="form-control">
-				<button type="button" id="addBtn" class="btn btn-success form-control mt-2">추가</button>
+				<div class="d-flex">
+					<button type="button" id="check"  class="btn btn-info">중복확인</button>
+					<button type="button" id="addBtn" class="btn btn-success form-control mt-2">추가</button>
+				</div>
+				<small id="isDuplicationText" class="text-danger d-none">중복된 url입니다.</small>
+				<small id="availableText" class="success d-none">저장 가능한 url입니다.</small>
 			</div>
-		</form>
+</form>
 	
 	</div>
 <script>
@@ -46,6 +52,40 @@
 				alert ("주소를 입력하세요")
 				return false;
 			}
+			
+			
+		$('#check').on('click', function(){
+			$('#addStatusArea').empty();
+			let address = $('#address').val().trim();
+			if (address ==""){
+				$('#addStatusArea').append('<span class="text-danger">주소가 비었습니다.</span>');
+
+				return ;
+			}
+			
+			// 중복 확인 완료 확인
+			if ($('#availableText'))
+			$.ajax({
+				//request
+				type:"POST"
+				, url:"lesson06/is_duplication_address"
+				,data :{"address":address}
+			
+				,success:function(data){ // JSON String => object 화 (jquery ajax 함수가 파싱해줌)
+					if (data.isDuplication){
+						$('#isDuplicationText').removeClass('d-none');
+						$('#availableText').addClass('d-none');
+					}else {
+						$('#isDuplicationText').addClass('d-none');
+						$('#availableText').removeClass('d-none');
+					}
+					
+					
+				}
+			})
+		})
+		
+		
 			$.ajax({
 				//request
 				type:"post"
@@ -57,12 +97,14 @@
 					if (data == "success"){
 						location.href="/lesson06/quiz01/get_address_view"
 					}
-					else{
-						alert("입력 실패");
-					}
 					
+					if (data.is_duplication == true) {
+						$('#addStatusArea').append('<span class="text-danger">중복된 주소입니다.</span>');
+				
 				}
-				,error: function(request, status, error){
+				},
+					
+				error: function(request, status, error){
 					alert("에러" + e);
 				}
 			});

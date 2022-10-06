@@ -1,10 +1,13 @@
 package com.quiz.lesson06;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -40,6 +43,22 @@ public class Lesson06Quiz01Controller {
 		model.addAttribute("result", favorite);
 		return "lesson06/getAddress";
 	}
+	
+	//quiz 02
+	// AJAX 호출하는 API => @ResponseBody
+	@ResponseBody
+	@PostMapping("/quiz02/is_duplication_address")
+	public Map<String, Boolean> isDuplication(
+		@RequestParam("address") String address){
+			Map<String, Boolean> result = new HashMap<>();
+			Favorite favorite = favoritebo.existFavoriteByAddress(address);
+			if (favorite == null) {
+				result.put("isDuplication", false);
+			}else {
+				result.put("isDuplication", true);
+			}
+				return result; // json String
+		}
 		
 		
 }
