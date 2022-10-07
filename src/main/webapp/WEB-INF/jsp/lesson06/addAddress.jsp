@@ -25,13 +25,15 @@
 			<div class="form-group"> 
 				<label for="name">이름</label>
 				<input type="text" id="name" name="name" class="form-control">
-				<label for="address" class="mt-2">주소</label>
-				<div class="d-flex"></div>
-				<input type="text" id="address" name="address" class="form-control">
 				<div class="d-flex">
-					<button type="button" id="check"  class="btn btn-info">중복확인</button>
-					<button type="button" id="addBtn" class="btn btn-success form-control mt-2">추가</button>
+				<label for="address" class="mt-2">주소</label>
+				<input type="text" id="address" name="address" class="form-control">
+				<button type="button" id="check"  class="btn btn-info form-control">중복확인</button>
 				</div>
+					
+				</div>
+				<button type="button" id="addBtn" class="btn btn-success form-control mt-2">추가</button>
+				
 				<small id="isDuplicationText" class="text-danger d-none">중복된 url입니다.</small>
 				<small id="availableText" class="success d-none">저장 가능한 url입니다.</small>
 			</div>

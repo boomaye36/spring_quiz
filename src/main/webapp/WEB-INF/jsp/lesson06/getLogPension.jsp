@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
      <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
    <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
@@ -27,78 +27,21 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
 <body>
-	<h1>즐겨 찾기 목록</h1>
-	<table class="table">
-		<thead>
-			<tr>
-				<th>No. </th>
-				<th>이름 </th>
-				<th>주소 </th>
-				
-			</tr>
-		</thead>
-		<tbody>
-		<c:forEach items="${result }" var="favorite" varStatus="status">
-			<tr>
-				<td>${status.count } </td>
-				<td>${favorite.name }</td>
-				<td>${favorite.address }</td>
-				<%--(1) name 이벤트, value 속성을 이용해서 동적으로 id 보내기 --%>
-				<!-- <td><button type="button" class="btn btn-danger deleteBt">삭제</button></td> -->
-				
-				<%-- (2) data를 이용해서 태그에 data를 임시 저장해놓기 --%>
-				<td><button type="button" class="del-btn btn btn-danger" data-favorite-id="${favorite.id }">삭제</button></td>
-			</tr>
-		</c:forEach>
-		
-		</tbody>
-	</table>
+	<div class="container">
+		<header>
+			<h1 class="text-center">통나무 팬션</h1>
+			<div class="p-3 text-light bg-warning d-flex justify-content-center align-items-center">
+				<nav>팬션소개</nav>
+				<nav>객실보기</nav>
+				<nav>예약하기</nav>
+				<nav>예약목록</nav>
+			</div>
+		</header>
 	
-	<script>
-		$(document).ready(function(){
-			// (1)
-			
-			/* $('td').on('click', 'button[name=deleteBt]', function(){
-				//let id = $(this).attr('value');
-				let id = e.target.value;
-				alert(id);
-			}); */
-			
-			// (2) data를 이용해서 태그에 data를 임시 저장해놓기
-			// 태그 : data-favorite-id data- 그 뒤부터는 이름을 지어준다. (꼭 하이픈 형식, 대문자 절대 X)
-			// 스크립트: $(this).data('favorite-id');
-			$('.del-btn').on('click', function(){
-				let favoriteId = $(this).data('favorite-id');
-				//alert(favoriteId);
-				
-				//AJAX -> 삭제할 id db
-				$.ajax({
-					type:"DELETE"
-					, url:"/lesson06/delete_favorite"
-					, data:{"id":favoriteId}
-				
-					//response
-					, success:function(data){ // json String => object
-						if (data.code == 100){
-							location.reload(true);
-							
-						}else {
-							alert(data.errorMessage);
-						}
-						
-					}
-					, error:function(e){
-						alert("삭제 실패했습니다. 관리자에게 문의하세요")
-					}
-				});
-			});
-			
-			
-			
-			
-			
-		});
-	</script>
+	</div>
 </body>
 </html>

@@ -7,14 +7,16 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.quiz.lesson06.bo.FavoriteBO;
+import com.quiz.lesson06.bo.PensionBO;
 import com.quiz.lesson06.model.Favorite;
+import com.quiz.lesson06.model.Pension;
 
 @RequestMapping("/lesson06/quiz01")
 @Controller
@@ -59,6 +61,32 @@ public class Lesson06Quiz01Controller {
 			}
 				return result; // json String
 		}
-		
+		//AJAX가 호출 -> ResponseBody
+		@ResponseBody
+		@DeleteMapping("/delete_favorite")
+		public Map<String, Object> deleteFavorite(
+			@RequestParam("id") int id){
+			Map<String, Object> result = new HashMap<>();
+			
+			int deleteRow = favoritebo.deleteFavorite(id);
+			if (deleteRow > 0) {
+				result.put("code", 100); // 100이면 성공 => 서버가 지정
+				result.put("result", "성공");
+			}else {
+				result.put("code", 500); // 500이면 실패 => 서버가 지정
+				result.put("errorMessage", "삭제 실패");
+			}
+			return result;
+			
+		}
+		@Autowired
+		private PensionBO pensionBO;
+		@RequestMapping("/get_pension_view")
+		public String getPensionView(Model model) {
+			
+			List<Pension> pension = pensionBO.pensionInfo();
+			model.addAttribute("result", pension);
+			return "lesson06/getLogPension";
+		}
 		
 }

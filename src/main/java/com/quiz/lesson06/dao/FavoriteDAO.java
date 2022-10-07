@@ -13,4 +13,6 @@ public interface FavoriteDAO {
 			);
 	public List<Favorite> selectFavoriteInfo();
 	public List<Favorite> existFavoriteByAddress(String address);
+	
+	public int deleteFavorite(int id);
 }

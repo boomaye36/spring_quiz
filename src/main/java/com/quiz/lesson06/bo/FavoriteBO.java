@@ -26,4 +26,7 @@ public class FavoriteBO {
 		}
 		return favoriteList.get(0); //중복이면 첫번째 데이터를 리턴한다.
 	}
+	public int deleteFavorite(int id) {
+		return favoritedao.deleteFavorite(id);
+	}
 }
