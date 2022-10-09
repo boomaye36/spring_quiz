@@ -18,7 +18,7 @@ import com.quiz.lesson06.bo.PensionBO;
 import com.quiz.lesson06.model.Favorite;
 import com.quiz.lesson06.model.Pension;
 
-@RequestMapping("/lesson06/quiz01")
+@RequestMapping("/lesson06")
 @Controller
 public class Lesson06Quiz01Controller {
 
@@ -85,8 +85,25 @@ public class Lesson06Quiz01Controller {
 		public String getPensionView(Model model) {
 			
 			List<Pension> pension = pensionBO.pensionInfo();
-			model.addAttribute("result", pension);
+			model.addAttribute("log", pension);
 			return "lesson06/getLogPension";
 		}
+		@ResponseBody
+		@DeleteMapping("/delete_pension")
+		public Map<String, Object> deletePension(
+				@RequestParam("id") int id){
+			Map<String, Object> result = new HashMap<>();
+			int deleteRow = pensionBO.deletePension(id);
+			if (deleteRow > 0) {
+				result.put("code", 100);
+				result.put("result", "성공");
+			} else { 
+				result.put("code", 500);
+				result.put("errorMessage", "삭제 실패입니당 ㅠ");
+			}
+			return result;
+		}
+		
+		
 		
 }

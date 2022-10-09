@@ -34,14 +34,77 @@
 	<div class="container">
 		<header>
 			<h1 class="text-center">통나무 팬션</h1>
-			<div class="p-3 text-light bg-warning d-flex justify-content-center align-items-center">
-				<nav>팬션소개</nav>
-				<nav>객실보기</nav>
-				<nav>예약하기</nav>
-				<nav>예약목록</nav>
-			</div>
+			<nav class="bg-warning">
+                <ul class="nav nav-fill">
+                    <li class="nav-item"><a href="#" class="nav-link text-white font-weight-bold">팬션소개</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link text-white font-weight-bold">객실보기</a></li>
+                    <li class="nav-item"><a href="lesson06/bookPension" class="nav-link text-white font-weight-bold">예약하기 </a></li>
+                    <li class="nav-item"><a href="#" class="nav-link text-white font-weight-bold">예약목록 </a></li>
+                </ul>
+            </nav>
 		</header>
+		<section>
+			<h2 class="text-center p-4">예약 목록 보기 </h2>
+			<table class="table text-center ">
+				<thead>
+					<tr>
+						<th>이름 </th>
+						<th>예약날짜 </th>
+						<th>숙박일수 </th>
+						<th>숙박인원 </th>
+						<th>전화번호 </th>
+						<th>예약상태 </th>
+					</tr>
+				</thead>
+				<tbody>
+				<c:forEach items="${log }" var="pension">
+					<tr>
+						<td>${pension.name}</td>
+						<td>${pension.day}</td>
+						<td>${pension.date}</td>
+						<td>${pension.headcount}</td>
+						<td>${pension.phoneNumber}</td>
+						<td class="text-success">${pension.state}</td>
+						<td><button type="button" class="del-btn btn btn-danger" data-pension-id="${pension.id }">삭제 </button></td>
+						
+						
+					</tr>
+					</c:forEach>
+				</tbody>
+			</table>
+			
+		</section>
+		<footer>
+			<small>서울특별시 삼성로 212<br>
+				아이스 아메리카노 주세용<br>
+				한세트만 더하면 줄게 </small>
+		</footer>
+		
 	
 	</div>
+	<script>
+	$(document).ready(function(){
+		$('.del-btn').on('click',function(){
+			let pensionId = $(this).data('pension-id');
+			//alert(pensionId);
+			$.ajax({
+				type:"DELETE"
+				, url:"/lesson06/delete_pension"
+				, data:{"id":pensionId}
+				, success:function(data){
+					if (data.code == 100){
+						location.reload(true);
+						
+					}else{
+						alert(data.errorMessage);
+					}
+				}
+				, error:function(e){
+					alert("삭제 실패입니다. ");
+				}
+			})
+		});
+	});
+	</script>
 </body>
 </html>

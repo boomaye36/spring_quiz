@@ -7,7 +7,8 @@
 	<select id="selectPensionInfo" 
 		resultType="com.quiz.lesson06.model.Pension">
 		SELECT
-			`name`
+			`id`
+			,`name`
 			,`headcount`
 			,`day`
 			,`date`
@@ -18,4 +19,11 @@
 		FROM 
 			`booking`
 	</select>
+	
+	<delete id="deletePension" parameterType="int">
+		DELETE
+		FROM
+			`booking`
+		WHERE `id` = #{id}
+	</delete>
 </mapper>

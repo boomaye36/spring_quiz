@@ -6,4 +6,5 @@ import com.quiz.lesson06.model.Pension;
 
 public interface PensionDAO {
 	public List<Pension> selectPensionInfo();
+	public int deletePension(int id);
 }

@@ -15,4 +15,8 @@ public class PensionBO {
 	public List<Pension> pensionInfo(){
 		return pensionDAO.selectPensionInfo();
 	}
+	
+	public int deletePension(int id) {
+		return pensionDAO.deletePension(id);
+	}
 }
