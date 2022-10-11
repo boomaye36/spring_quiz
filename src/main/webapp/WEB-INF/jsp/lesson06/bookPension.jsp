@@ -57,7 +57,7 @@
 		</div>
 	<script>
 		$(document).ready(function() {
-			$('#addBtn').on('click', function(e){
+			$('#addBtn').on('click', function(){
 				e.preventDefault();
 				let name = $('#name').val().trim();
 				
@@ -66,15 +66,25 @@
 				changeMonth : true,  
 				changeYear : true,  
 				dateFormat : "yy-mm-dd"
+				,minDate : 0 //오늘부터 뒤 선택
 			});
+			
+			//ajax -> insert
 			$.ajax({
+				//request
 				type:"post"
 				, url:"/lesson06/quiz03/add_pension"
 				, data:{"name":name, "date":date, "day":day, "headcount":headcount, "phoneNummber":phoneNumber}
+				// response
 				, success : function(data){
 					if (data == "success"){
 						location.href="/lesson06/quiz03/get_pension_view"
+					}else {
+						alert(data.errorMessage);
 					}
+				}
+				,error:function(e){
+					alert("예약하는데 실패했습니다.");
 				}
 			});
 		});

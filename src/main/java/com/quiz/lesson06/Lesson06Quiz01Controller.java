@@ -107,15 +107,23 @@ public class Lesson06Quiz01Controller {
 	}
 
 	@PostMapping("/add_pension")
-		public String addPension(
+		public Map<String, Object> addPension(
 				@RequestParam("name") String name,
 				@RequestParam("date") String date,
 				@RequestParam("day") int day,
 				@RequestParam("headcount") int headcount,
 				@RequestParam("phoneNumber") String phoneNumber
 				) {
-			pensionBO.addPension(name, date, day, headcount, phoneNumber); 
-			return "success";
+		int addCount = pensionBO.addPension(name, date, day, headcount, phoneNumber);	
+		Map<String, Object> result = new HashMap<>();
+			if(addCount > 0) {
+				result.put("code", 100);
+				result.put("result", "성공");
+			}else {
+				result.put("code", 500);
+				result.put("errorMessage", "데이터를 입력하는데 실패했습니다.");
+			}
+			return result;
 		
 		}
 
@@ -123,5 +131,27 @@ public class Lesson06Quiz01Controller {
 	public String addPensionView() {
 		return "lesson06/bookPension";
 	}
+	
+	@RequestMapping("/quiz03/confirm_pension_view")
+	public String confirmPensionView() {
+		return "lesson06/bookView";
+	}
+	@ResponseBody
+	@PostMapping("/search_booking")
+	public Map<String, Object> searchBooking(
+			@RequestParam("name") String name,
+			@RequestParam("phoneNumber") String phoneNumber
+			){
+		Pension pension = pensionBO.getLatestBooking(name, phoneNumber);
+		Map<String, Object> result = new HashMap<>();
+		if(pension != null) {
+			result.put("code", 100);
+			result.put("booking", pension);
+		}else {
+			result.put("code", 400);
+		}
+		return result;
+	}
+
 
 }

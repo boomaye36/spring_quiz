@@ -32,10 +32,10 @@
             </nav>
 		</header>
 		<section>
-			<div>
-				<img src="/img/test06_banner1.jgp" alt="banner">
+			<div class="banner">
+				<img src="/img/test06_banner1.jpg" alt="banner"  id="bannerImage">
 			</div>
-			<div class="d-flex align-items-center justify-content-center text-light">
+			<div class="d-flex align-items-center justify-content-center text-light bg-warning">
 				<div><h1 class="text-light">실시간 예약하기 </h1></div>
 				<div><h4 class="text-light">예약 확인 </h4><br>
 					<div class="form-group">
@@ -59,10 +59,49 @@
 			</div>
 	</section>
 	<script>
-		var bannerScrArr = ['/img/test06_banner1.jpg','/img/test06_banner2.jpg','/img/test06_banner3.jpg','/img/test06_banner4.jpg']
-		var currentIndex = 0;
+		let bannerScrArr = ['/img/test06_banner1.jpg','/img/test06_banner2.jpg','/img/test06_banner3.jpg','/img/test06_banner4.jpg']
+		let currentIndex = 0;
 		setInterval(function(){
-			$('#')
+			$('#bannerImage').arrt('src', bannerScrArr[currentIndex]);
+			currentIndex++;
+			
+			if (currentIndex > bannerSrcArr.length){
+				currentIndex = 0;
+			}
+		}, 3000);
+		});
+		
+		$(document).ready(function(){
+			$('#accessBtn').on('click', function(){
+				e.preventionDefault();
+				let name = $('#name').val().trim();
+				let phoneNumber = $('#phoneNumber').val().trim();
+				if (name == 0){
+					alert("이름을 입력하세요");
+					return;
+				}
+				if (phoneNumber.startsWith("010") == false){
+					alert("010으로 시작하는 번호를 입력하세요");
+					return ;
+				}
+				$.ajax({
+					type:"POST"
+					,url : "/lesson06/search_booking"
+					,data:{"name":name, "phoneNumber":phoneNumber}
+					, success:function(data){
+						if (data.code == 100){
+							alert("이름:" + data.pension.name
+									+ "\n날짜:" + data.pension.date.slice(0, 10)
+									+ "\n일수:" + data.pension.day
+									+"\n인원:" + data.pension.headcount
+									+"\n상태:" + data.pension.state);	
+						}else {
+							alert("예약 내역이 없습니다.")
+						}
+					},error:function(e){
+						alert("예약하는데 실패했습니다.");
+				});
+			});
 		});
 	</script>
 </body>
