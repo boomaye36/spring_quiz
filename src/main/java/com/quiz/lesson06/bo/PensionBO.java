@@ -19,4 +19,7 @@ public class PensionBO {
 	public int deletePension(int id) {
 		return pensionDAO.deletePension(id);
 	}
+	public void addPension(String name, String date, int day, int headcount, String phoneNumber ) {
+		pensionDAO.insertPension(name, date, day, headcount, phoneNumber);
+	}
 }

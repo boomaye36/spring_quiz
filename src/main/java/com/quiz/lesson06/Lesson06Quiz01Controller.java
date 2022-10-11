@@ -24,86 +24,104 @@ public class Lesson06Quiz01Controller {
 
 	@RequestMapping("/add_address_view")
 	public String addAddressView() {
-		
-		return "lesson06/addAddress";
+
+		return "/quiz01/addAddress";
 	}
+
 	@Autowired
 	private FavoriteBO favoritebo;
+
 	@ResponseBody
-	//AJAX가 호출하는 API =? @ResponseBody 있어야함
-	@PostMapping("/add_address")
-	public String addAddress(
-			@RequestParam("name") String name,
-			@RequestParam("address") String address) {
+	// AJAX가 호출하는 API =? @ResponseBody 있어야함
+	@PostMapping("/quiz01/add_address")
+	public String addAddress(@RequestParam("name") String name, @RequestParam("address") String address) {
 		favoritebo.addAddress(name, address);
 		return "success";
 	}
-	@RequestMapping("/get_address_view")
+
+	@RequestMapping("/quiz01/get_address_view")
 	public String getAddressView(Model model) {
 		List<Favorite> favorite = favoritebo.favoriteInfo();
-		
+
 		model.addAttribute("result", favorite);
 		return "lesson06/getAddress";
 	}
-	
-	//quiz 02
+
+	// quiz 02
 	// AJAX 호출하는 API => @ResponseBody
 	@ResponseBody
 	@PostMapping("/quiz02/is_duplication_address")
-	public Map<String, Boolean> isDuplication(
-		@RequestParam("address") String address){
-			Map<String, Boolean> result = new HashMap<>();
-			Favorite favorite = favoritebo.existFavoriteByAddress(address);
-			if (favorite == null) {
-				result.put("isDuplication", false);
-			}else {
-				result.put("isDuplication", true);
-			}
-				return result; // json String
+	public Map<String, Boolean> isDuplication(@RequestParam("address") String address) {
+		Map<String, Boolean> result = new HashMap<>();
+		Favorite favorite = favoritebo.existFavoriteByAddress(address);
+		if (favorite == null) {
+			result.put("isDuplication", false);
+		} else {
+			result.put("isDuplication", true);
 		}
-		//AJAX가 호출 -> ResponseBody
-		@ResponseBody
-		@DeleteMapping("/delete_favorite")
-		public Map<String, Object> deleteFavorite(
-			@RequestParam("id") int id){
-			Map<String, Object> result = new HashMap<>();
-			
-			int deleteRow = favoritebo.deleteFavorite(id);
-			if (deleteRow > 0) {
-				result.put("code", 100); // 100이면 성공 => 서버가 지정
-				result.put("result", "성공");
-			}else {
-				result.put("code", 500); // 500이면 실패 => 서버가 지정
-				result.put("errorMessage", "삭제 실패");
-			}
-			return result;
-			
+		return result; // json String
+	}
+
+	// AJAX가 호출 -> ResponseBody
+	@ResponseBody
+	@DeleteMapping("/delete_favorite")
+	public Map<String, Object> deleteFavorite(@RequestParam("id") int id) {
+		Map<String, Object> result = new HashMap<>();
+
+		int deleteRow = favoritebo.deleteFavorite(id);
+		if (deleteRow > 0) {
+			result.put("code", 100); // 100이면 성공 => 서버가 지정
+			result.put("result", "성공");
+		} else {
+			result.put("code", 500); // 500이면 실패 => 서버가 지정
+			result.put("errorMessage", "삭제 실패");
 		}
-		@Autowired
-		private PensionBO pensionBO;
-		@RequestMapping("/get_pension_view")
-		public String getPensionView(Model model) {
-			
-			List<Pension> pension = pensionBO.pensionInfo();
-			model.addAttribute("log", pension);
-			return "lesson06/getLogPension";
+		return result;
+
+	}
+
+	@Autowired
+	private PensionBO pensionBO;
+
+	@RequestMapping("/quiz03/get_pension_view")
+	public String getPensionView(Model model) {
+
+		List<Pension> pension = pensionBO.pensionInfo();
+		model.addAttribute("log", pension);
+		return "lesson06/getLogPension";
+	}
+
+	@ResponseBody
+	@DeleteMapping("/delete_pension")
+	public Map<String, Object> deletePension(@RequestParam("id") int id) {
+		Map<String, Object> result = new HashMap<>();
+		int deleteRow = pensionBO.deletePension(id);
+		if (deleteRow > 0) {
+			result.put("code", 100);
+			result.put("result", "성공");
+		} else {
+			result.put("code", 500);
+			result.put("errorMessage", "삭제 실패입니당 ㅠ");
 		}
-		@ResponseBody
-		@DeleteMapping("/delete_pension")
-		public Map<String, Object> deletePension(
-				@RequestParam("id") int id){
-			Map<String, Object> result = new HashMap<>();
-			int deleteRow = pensionBO.deletePension(id);
-			if (deleteRow > 0) {
-				result.put("code", 100);
-				result.put("result", "성공");
-			} else { 
-				result.put("code", 500);
-				result.put("errorMessage", "삭제 실패입니당 ㅠ");
-			}
-			return result;
-		}
+		return result;
+	}
+
+	@PostMapping("/add_pension")
+		public String addPension(
+				@RequestParam("name") String name,
+				@RequestParam("date") String date,
+				@RequestParam("day") int day,
+				@RequestParam("headcount") int headcount,
+				@RequestParam("phoneNumber") String phoneNumber
+				) {
+			pensionBO.addPension(name, date, day, headcount, phoneNumber); 
+			return "success";
 		
-		
-		
+		}
+
+	@RequestMapping("/quiz03/add_pension_view")
+	public String addPensionView() {
+		return "lesson06/bookPension";
+	}
+
 }
