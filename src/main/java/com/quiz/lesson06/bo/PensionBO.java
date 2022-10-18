@@ -1,4 +1,4 @@
-package com.quiz.lesson06.bo;
+ package com.quiz.lesson06.bo;
 
 import java.util.List;
 

@@ -32,8 +32,8 @@
                 <ul class="nav nav-fill">
                     <li class="nav-item"><a href="#" class="nav-link text-white font-weight-bold">팬션소개</a></li>
                     <li class="nav-item"><a href="#" class="nav-link text-white font-weight-bold">객실보기</a></li>
-                    <li class="nav-item"><a href="#" class="nav-link text-white font-weight-bold">예약안내</a></li>
-                    <li class="nav-item"><a href="#" class="nav-link text-white font-weight-bold">커뮤니티</a></li>
+                    <li class="nav-item"><a href="/lesson06/quiz03/add_pension_view" class="nav-link text-white font-weight-bold">예약안내</a></li>
+                    <li class="nav-item"><a href="/lesson06/quiz03/confirm_pension_view" class="nav-link text-white font-weight-bold">예약목록 </a></li>
                 </ul>
             </nav>
 		</header>
@@ -50,34 +50,73 @@
 				<input type="text" id="headcount" name="headcount" class="form-control">
 				<label for="phoneNumber ">전화번호  </label>
 				<input type="text" id="phoneNumber" name="phoneNumber" class="form-control">
-				<button type="button" id="addBtn" class="btn btn-warning">계속하기 </button>
+				<button type="button" id="addBtn" class="btn btn-warning">예약하기  </button>
 			</div>
 			
 		</section>
 		</div>
 	<script>
 		$(document).ready(function() {
-			$('#addBtn').on('click', function(){
-				e.preventDefault();
-				let name = $('#name').val().trim();
-				
-			})
+			
 			$('#date').datepicker({
 				changeMonth : true,  
 				changeYear : true,  
 				dateFormat : "yy-mm-dd"
 				,minDate : 0 //오늘부터 뒤 선택
 			});
+			$('#addBtn').on('click', function(){
+				let name = $('input[name=name]').val().trim();
+				let date = $('input[name=date]').val().trim();
+				let day = $('input[name=day]').val().trim();
+				let headcount = $('input[name=headcount]').val().trim();
+				let phoneNumber = $('#phoneNumber').val().trim();
+				
+				if (name == "") {
+					alert("이름을 입력하세요");
+					return;
+				}
+				
+				if (date == "") {
+					alert("날짜를 선택하세요");
+					return;
+				}
+				
+				if (day == "") {
+					alert("숙박일을 입력하세요");
+					return;
+				} 
+				
+				if (isNaN(day)) {
+					alert("숙박일수를 숫자만 입력가능합니다.");
+					return;
+				}
+				
+				if (headcount == "") {
+					alert("숙박 인원을 입력하세요");
+					return;
+				}
+				
+				if (isNaN(headcount)) {
+					alert("숙박인원은 숫자만 입력가능합니다.");
+					return;
+				}
+				
+				if (phoneNumber == "") {
+					alert("전화번호를 입력하세요");
+					return;
+				}
+			
 			
 			//ajax -> insert
 			$.ajax({
 				//request
-				type:"post"
-				, url:"/lesson06/quiz03/add_pension"
+				type:"POST"
+				, url:"/lesson06/add_booking"
 				, data:{"name":name, "date":date, "day":day, "headcount":headcount, "phoneNummber":phoneNumber}
 				// response
 				, success : function(data){
-					if (data == "success"){
+					if (data.code == 100){
+						alert("예약되었습니다.");
 						location.href="/lesson06/quiz03/get_pension_view"
 					}else {
 						alert(data.errorMessage);
@@ -87,7 +126,10 @@
 					alert("예약하는데 실패했습니다.");
 				}
 			});
+			});
 		});
+
+		
 	</script>
 		
 </body>

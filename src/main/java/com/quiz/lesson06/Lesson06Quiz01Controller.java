@@ -105,32 +105,35 @@ public class Lesson06Quiz01Controller {
 		}
 		return result;
 	}
-
-	@PostMapping("/add_pension")
-		public Map<String, Object> addPension(
-				@RequestParam("name") String name,
-				@RequestParam("date") String date,
-				@RequestParam("day") int day,
-				@RequestParam("headcount") int headcount,
-				@RequestParam("phoneNumber") String phoneNumber
-				) {
-		int addCount = pensionBO.addPension(name, date, day, headcount, phoneNumber);	
-		Map<String, Object> result = new HashMap<>();
-			if(addCount > 0) {
-				result.put("code", 100);
-				result.put("result", "성공");
-			}else {
-				result.put("code", 500);
-				result.put("errorMessage", "데이터를 입력하는데 실패했습니다.");
-			}
-			return result;
-		
-		}
-
+	
 	@RequestMapping("/quiz03/add_pension_view")
 	public String addPensionView() {
 		return "lesson06/bookPension";
 	}
+	@ResponseBody
+	@PostMapping("/add_booking")
+	public Map<String, Object> addBooking(
+			@RequestParam("name") String name,
+			@RequestParam("date") String date,
+			@RequestParam("day") int day,
+			@RequestParam("headcount") int headcount,
+			@RequestParam(value="phoneNumber", required=false) String phoneNumber) {
+		
+		int addCount =pensionBO.addPension(name, date, day, headcount, phoneNumber);
+		
+		Map<String, Object> result = new HashMap<>();
+		if (addCount > 0) {
+			result.put("code", 100);
+			result.put("result", "성공");
+		} else {
+			result.put("code", 500);
+			result.put("errorMessage", "데이터를 입력하는데 실패했습니다.");
+		}
+		
+		return result;
+	}
+
+	
 	
 	@RequestMapping("/quiz03/confirm_pension_view")
 	public String confirmPensionView() {

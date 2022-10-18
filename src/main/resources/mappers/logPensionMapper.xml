@@ -51,7 +51,8 @@
 		)
 		
 	</insert>
-	<select id="selectBookingListByNamePhoneNumber" parameterType="int">
+	<select id="selectBookingListByNamePhoneNumber" 	parameterType="map" resultType="com.quiz.lesson06.model.Pension">
+
 		SELECT
 			`id`
 			,`name`
@@ -65,7 +66,7 @@
 		FROM 
 			`booking`
 		WHERE
-			`name` = {#name}
+			`name` = #{name}
 			AND `phoneNumber` = #{phoneNumber}
 	</select>
 </mapper>
