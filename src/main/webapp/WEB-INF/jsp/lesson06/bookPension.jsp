@@ -50,7 +50,7 @@
 				<input type="text" id="headcount" name="headcount" class="form-control">
 				<label for="phoneNumber ">전화번호  </label>
 				<input type="text" id="phoneNumber" name="phoneNumber" class="form-control">
-				<button type="button" id="addBtn" class="btn btn-warning">예약하기  </button>
+				<button type="button" id="addBtnp" class="btn btn-warning">예약하기  </button>
 			</div>
 			
 		</section>
@@ -58,13 +58,15 @@
 	<script>
 		$(document).ready(function() {
 			
+			
 			$('#date').datepicker({
 				changeMonth : true,  
 				changeYear : true,  
 				dateFormat : "yy-mm-dd"
 				,minDate : 0 //오늘부터 뒤 선택
 			});
-			$('#addBtn').on('click', function(){
+			$('#addBtnp').on('click', function(){
+				console.log('addBtn clicked');
 				let name = $('input[name=name]').val().trim();
 				let date = $('input[name=date]').val().trim();
 				let day = $('input[name=day]').val().trim();
@@ -112,7 +114,7 @@
 				//request
 				type:"POST"
 				, url:"/lesson06/add_booking"
-				, data:{"name":name, "date":date, "day":day, "headcount":headcount, "phoneNummber":phoneNumber}
+				, data:{"name":name, "date":date, "day":day, "headcount":headcount, "phoneNumber":phoneNumber}
 				// response
 				, success : function(data){
 					if (data.code == 100){

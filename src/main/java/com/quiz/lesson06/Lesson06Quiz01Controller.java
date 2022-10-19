@@ -117,7 +117,7 @@ public class Lesson06Quiz01Controller {
 			@RequestParam("date") String date,
 			@RequestParam("day") int day,
 			@RequestParam("headcount") int headcount,
-			@RequestParam(value="phoneNumber", required=false) String phoneNumber) {
+			@RequestParam(value="phoneNumber") String phoneNumber) {
 		
 		int addCount =pensionBO.addPension(name, date, day, headcount, phoneNumber);
 		
